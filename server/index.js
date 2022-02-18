@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+const robotRouter = require("./routes/robotRouter");
 const debug = require("debug")("robots:server");
 
 const app = express();
@@ -20,6 +21,6 @@ const runTheServer = (port) => {
   });
 };
 
-app.use("/myrobots");
+app.use("/myrobots", robotRouter);
 
 module.exports = runTheServer;
