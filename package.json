@@ -5,7 +5,12 @@
   "main": "./src/index.js",
   "scripts": {
     "start": "node .",
-    "start-dev": "nodemon . -q"
+    "start-dev": "nodemon . -q",
+    "test": "jest --watchAll",
+    "testCoverage": "jest --watchAll --coverage"
+  },
+  "jest": {
+    "testEnvironment": "jsdom"
   },
   "keywords": [],
   "author": "",
@@ -16,12 +21,14 @@
     "debug": "^4.3.3",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
+    "jest": "^27.5.1",
     "mongoose": "^6.2.2",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.15",
     "prompt": "^1.2.2"
   },
   "devDependencies": {
+    "@types/jest": "^27.4.0",
     "eslint": "^8.9.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.3.0",
