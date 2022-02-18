@@ -10,7 +10,7 @@
     "testCoverage": "jest --watchAll --coverage"
   },
   "jest": {
-    "testEnvironment": "jsdom"
+    "testEnvironment": "node"
   },
   "keywords": [],
   "author": "",
