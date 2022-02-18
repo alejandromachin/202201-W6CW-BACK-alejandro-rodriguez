@@ -5,7 +5,7 @@ const debug = require("debug")("robots:server");
 const robotRouter = require("./routes/robotRouter");
 
 const app = express();
-
+app.use(express.static(`${__dirname}/`));
 app.use(morgan("dev"));
 
 const runTheServer = (port) =>
@@ -22,5 +22,8 @@ const runTheServer = (port) =>
   });
 
 app.use("/myrobots", robotRouter);
+app.get("/robots", (req, res) => {
+  res.json({ hola: "probando" });
+});
 
 module.exports = runTheServer;
