@@ -3,9 +3,6 @@ const express = require("express");
 
 const robotRouter = express.Router();
 
-router.get("/robots", async (req, res) => {
-  const robots = await Robot.find();
-  res.json({ robots });
-});
+router.get("/robots");
 
 module.exports = robotRouter;
