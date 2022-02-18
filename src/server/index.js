@@ -1,10 +1,14 @@
 require("dotenv").config();
 const express = require("express");
+const morgan = require("morgan");
 const debug = require("debug")("robots:server");
+const robotRouter = require("./routes/robotRouter");
 
 const app = express();
 
-const runTheServer = (port) => {
+app.use(morgan("dev"));
+
+const runTheServer = (port) =>
   new Promise((resolve, reject) => {
     const server = app.listen(port, () => {
       debug(`We are running on port http://localhost:${port}`);
@@ -16,6 +20,7 @@ const runTheServer = (port) => {
       reject(new Error(`Error on server: ${message}`));
     });
   });
-};
+
+app.use("/myrobots", robotRouter);
 
 module.exports = runTheServer;
