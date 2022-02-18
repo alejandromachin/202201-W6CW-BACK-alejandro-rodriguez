@@ -1,8 +1,9 @@
 require("dotenv").config();
 const express = require("express");
+const { getAllRobots } = require("../controllers/robotsControler");
 
-const robotRouter = express.Router();
+const router = express.Router();
 
-router.get("/robots");
+router.get("/robots", getAllRobots);
 
-module.exports = robotRouter;
+module.exports = router;

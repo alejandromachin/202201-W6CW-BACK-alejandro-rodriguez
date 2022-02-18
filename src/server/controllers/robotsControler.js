@@ -1,3 +1,5 @@
+const Robot = require("../../database/models/Robot");
+
 require("dotenv").config();
 
 const getAllRobots = async (req, res) => {
