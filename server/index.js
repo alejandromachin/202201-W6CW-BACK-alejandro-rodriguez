@@ -4,6 +4,8 @@ const debug = require("debug")("robots:server");
 
 const app = express();
 
+app.use(morgan("dev"));
+
 const runTheServer = (port) => {
   new Promise((resolve, reject) => {
     const server = app.listen(port, () => {
@@ -17,5 +19,7 @@ const runTheServer = (port) => {
     });
   });
 };
+
+app.use("/myrobots");
 
 module.exports = runTheServer;
