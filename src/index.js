@@ -1,5 +1,4 @@
 require("dotenv").config();
-const debug = require("debug")("robots:root");
 const connectToDatabase = require("./database/index");
 const runTheServer = require("./server/index");
 

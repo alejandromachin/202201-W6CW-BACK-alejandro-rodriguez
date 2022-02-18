@@ -1,7 +1,7 @@
-// const Robot = require("../../database/models/Robot");
-// const { getAllRobots } = require("./robotsControler");
+const Robot = require("../../database/models/Robot");
+const { getAllRobots } = require("./robotsControler");
 
-// jest.mock("../../database/models/Robot");
+jest.mock("../../database/models/Robot");
 
 describe("Given a getAllRobots function", () => {
   beforeEach(() => {
@@ -9,9 +9,9 @@ describe("Given a getAllRobots function", () => {
   });
   describe("When it receives a response", () => {
     test("Then it should call its json method with an array of robots", async () => {
-      // const res = {
-      //   json: jest.fn(),
-      // };
+      const res = {
+        json: jest.fn(),
+      };
 
       const robots = [
         {
@@ -30,11 +30,11 @@ describe("Given a getAllRobots function", () => {
         },
       ];
 
-      // Robot.find = jest.fn().mockResolvedValue(robots);
+      Robot.find = jest.fn().mockResolvedValue(robots);
 
-      //   await getAllRobots(null, res);
+      await getAllRobots(null, res);
 
-      //   expect(res.json).toHaveBeenCalledWith({ robots });
+      expect(res.json).toHaveBeenCalledWith({ robots });
       expect(robots).toEqual(robots);
     });
   });
