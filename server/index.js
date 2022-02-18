@@ -3,9 +3,8 @@ const express = require("express");
 const debug = require("debug")("robots:server");
 
 const app = express();
-const port = process.env.SERVER_PORT || 4000;
 
-const runTheServer = () => {
+const runTheServer = (port) => {
   new Promise((resolve, reject) => {
     const server = app.listen((port) => {
       debug(`We are running on port http://localhost:${port}`);
