@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const debug = require("debug")("thingsIAlreadyKnow:database");
+const debug = require("debug")("robots:database");
 
 const connectToDatabase = (mongoConnectionString) =>
   new Promise((resolve, reject) => {
