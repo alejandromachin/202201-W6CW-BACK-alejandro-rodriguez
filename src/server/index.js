@@ -1,6 +1,5 @@
 require("dotenv").config();
 const cors = require("cors");
-
 const express = require("express");
 const morgan = require("morgan");
 const debug = require("debug")("robots:server");
@@ -23,9 +22,6 @@ const runTheServer = (port) =>
     });
   });
 app.use(cors());
-app.use("/myrobots", robotRouter);
-app.get("/robots", (req, res) => {
-  res.json({ hola: "probando" });
-});
+app.use("/robots", robotRouter);
 
 module.exports = runTheServer;

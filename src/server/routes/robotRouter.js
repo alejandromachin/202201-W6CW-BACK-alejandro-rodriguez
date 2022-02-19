@@ -4,6 +4,6 @@ const { getAllRobots } = require("../controllers/robotsControler");
 
 const router = express.Router();
 
-router.get("/robots", getAllRobots);
+router.get("/", getAllRobots);
 
 module.exports = router;
