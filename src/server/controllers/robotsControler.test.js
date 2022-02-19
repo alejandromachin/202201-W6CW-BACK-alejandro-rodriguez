@@ -1,5 +1,5 @@
 const Robot = require("../../database/models/Robot");
-const { getAllRobots } = require("./robotsControler");
+const { getAllRobots, getRobotById } = require("./robotsControler");
 
 jest.mock("../../database/models/Robot");
 
@@ -36,6 +36,62 @@ describe("Given a getAllRobots function", () => {
 
       expect(res.json).toHaveBeenCalledWith({ robots });
       expect(robots).toEqual(robots);
+    });
+  });
+});
+
+describe("Given a getRobotById function", () => {
+  describe("When it receives a response", () => {
+    test("Then if the robot exists it should call its json method with one robot", async () => {
+      const robot = {
+        id: 1,
+        name: "Robomach",
+        velocity: 3,
+        resistency: 6,
+        dateOfCreation: "",
+      };
+
+      const res = {
+        json: jest.fn(),
+      };
+
+      const req = {
+        params: { id: 1 },
+      };
+
+      Robot.findById = jest.fn().mockResolvedValue(robot);
+
+      await getRobotById(req, res);
+
+      expect(res.json).toHaveBeenCalledWith(robot);
+    });
+    test("Then if the id of the robotis not correct it should call next method with the error", async () => {
+      const req = {
+        params: { id: "not correct" },
+      };
+
+      const next = jest.fn();
+      const error = new Error("Invalid id format");
+
+      Robot.findById = jest.fn().mockRejectedValue(error);
+
+      await getRobotById(req, null, next);
+
+      expect(next).toHaveBeenCalledWith(error);
+    });
+    test("Then if the robot doesn't exist it should call next method with the error", async () => {
+      const req = {
+        params: { id: 1 },
+      };
+
+      const next = jest.fn();
+      const error = new Error("Sorry, robot not found");
+
+      Robot.findById = jest.fn().mockResolvedValue(null);
+
+      await getRobotById(req, null, next);
+
+      expect(next).toHaveBeenCalledWith(error);
     });
   });
 });
