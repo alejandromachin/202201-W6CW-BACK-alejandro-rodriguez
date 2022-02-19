@@ -7,5 +7,20 @@ const getAllRobots = async (req, res) => {
 
   res.json({ robots });
 };
-
-module.exports = { getAllRobots };
+const getRobotById = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const robot = await Robot.findById(id);
+    if (robot) {
+      res.json(robot);
+    } else {
+      const error = new Error("Sorry, robot not found");
+      error.code = 404;
+      next(error);
+    }
+  } catch (error) {
+    error.code = 400;
+    next(error);
+  }
+};
+module.exports = { getAllRobots, getRobotById };
