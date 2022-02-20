@@ -1,5 +1,7 @@
 const verifyToken = (req, res, next) => {
-  const bearerHeader = req.headers.autorization;
+  const bearerHeader = req.headers.authorization;
+  console.log("hola");
+
   if (typeof bearerHeader !== "undefined") {
     const bearerToken = bearerHeader.split[" "][1];
     req.token = bearerToken;
@@ -11,4 +13,4 @@ const verifyToken = (req, res, next) => {
   }
 };
 
-export default verifyToken;
+module.exports = verifyToken;
