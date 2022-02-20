@@ -26,7 +26,7 @@ const getRobotById = async (req, res, next) => {
   }
 };
 
-const getToken = async (req, res, next) => {
+const getToken = async (req, res) => {
   jsonwebtoken.sign("tokenKey", (err, token) => {
     res.json({ token });
   });
