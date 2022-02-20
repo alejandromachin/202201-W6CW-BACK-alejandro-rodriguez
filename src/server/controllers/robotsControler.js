@@ -26,9 +26,18 @@ const getRobotById = async (req, res, next) => {
   }
 };
 
-const getToken = async (req, res) => {
+const postRobot = async (req, res) => {
+  const newRobot = req.body;
+
+  const createdRobot = await Robot.create(newRobot);
+
+  res.status(201);
+  res.json(createdRobot);
+};
+
+const getToken = (req, res) => {
   jsonwebtoken.sign("tokenKey", (err, token) => {
     res.json({ token });
   });
 };
-module.exports = { getAllRobots, getRobotById, getToken };
+module.exports = { getAllRobots, getRobotById, getToken, postRobot };

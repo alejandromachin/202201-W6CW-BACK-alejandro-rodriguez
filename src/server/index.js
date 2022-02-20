@@ -10,6 +10,7 @@ const robotRouter = require("./routes/robotRouter");
 const app = express();
 app.use(express.static(`${__dirname}/`));
 app.use(morgan("dev"));
+app.use(express.json());
 
 const runTheServer = (port) =>
   new Promise((resolve, reject) => {
