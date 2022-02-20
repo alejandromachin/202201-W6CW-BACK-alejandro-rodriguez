@@ -1,14 +1,25 @@
-const verifyToken = (req, res, next) => {
-  const bearerHeader = req.headers.autorization;
-  if (typeof bearerHeader !== "undefined") {
-    const bearerToken = bearerHeader.split[" "][1];
-    req.token = bearerToken;
-    next();
+require("dotenv").config();
+
+const jsonwebtoken = require("jsonwebtoken");
+
+const verifyToken = async (req, res, next) => {
+  const token = req.query.Authorization;
+
+  const tokenId = token.split(" ")[1];
+
+  if (typeof tokenId !== "undefined") {
+    await jsonwebtoken.verify(tokenId, process.env.SECRET, (error) => {
+      if (error) {
+        const newError = new Error("You are not authorized");
+        next(newError);
+        return;
+      }
+
+      next();
+    });
   } else {
-    const error = new Error("Sorry, you are not authorized to do this");
-    error.code = 403;
-    next(error);
+    res.sendStatus(403);
   }
 };
 
-export default verifyToken;
+module.exports = verifyToken;

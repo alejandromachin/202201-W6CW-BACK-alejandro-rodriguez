@@ -6,4 +6,4 @@ const router = express.Router();
 
 router.get("/", getToken);
 
-module.exports = getToken;
+module.exports = router;
