@@ -1,3 +1,4 @@
+const jsonwebtoken = require("jsonwebtoken");
 const Robot = require("../../database/models/Robot");
 
 require("dotenv").config();
@@ -24,4 +25,10 @@ const getRobotById = async (req, res, next) => {
     next(error);
   }
 };
-module.exports = { getAllRobots, getRobotById };
+
+const getToken = async (req, res) => {
+  jsonwebtoken.sign("tokenKey", (err, token) => {
+    res.json({ token });
+  });
+};
+module.exports = { getAllRobots, getRobotById, getToken };
