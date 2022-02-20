@@ -34,7 +34,7 @@ describe("Given a getAllRobots function", () => {
 
       await getAllRobots(null, res);
 
-      expect(res.json).toHaveBeenCalledWith({ robots });
+      expect(res.json).toHaveBeenCalledWith(robots);
       expect(robots).toEqual(robots);
     });
   });
