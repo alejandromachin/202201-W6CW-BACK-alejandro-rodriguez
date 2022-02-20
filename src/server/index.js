@@ -3,6 +3,7 @@ const cors = require("cors");
 const express = require("express");
 const morgan = require("morgan");
 const debug = require("debug")("robots:server");
+const jsonwebtoken = require("jsonwebtoken");
 const robotRouter = require("./routes/robotRouter");
 
 const app = express();
@@ -22,6 +23,7 @@ const runTheServer = (port) =>
     });
   });
 app.use(cors());
+app.use("/login");
 app.use("/robots", robotRouter);
 
 module.exports = runTheServer;
