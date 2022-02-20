@@ -1,11 +1,16 @@
-const verifyToken = async (req, res, next) => {
-  const { token } = req.params;
+require("dotenv").config();
 
-  if (typeof token !== "undefined") {
-    await jwt.verify(token, secret, (error) => {
+const jsonwebtoken = require("jsonwebtoken");
+
+const verifyToken = async (req, res, next) => {
+  const token = req.query.Authorization;
+
+  const tokenId = token.split(" ")[1];
+
+  if (typeof tokenId !== "undefined") {
+    await jsonwebtoken.verify(tokenId, process.env.SECRET, (error) => {
       if (error) {
         const newError = new Error("You are not authorized");
-        newError.type = errorTypes.invalidToken;
         next(newError);
         return;
       }

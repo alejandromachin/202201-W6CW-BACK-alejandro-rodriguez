@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const jsonwebtoken = require("jsonwebtoken");
 const Robot = require("../../database/models/Robot");
 
@@ -36,7 +38,7 @@ const postRobot = async (req, res) => {
 };
 
 const getToken = (req, res) => {
-  const user = { name: "Alejandro" };
+  const user = { name: "Alejandro", id: 123 };
 
   jsonwebtoken.sign({ user }, process.env.SECRET, (err, token) => {
     res.json({ token });
