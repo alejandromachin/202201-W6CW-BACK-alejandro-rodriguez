@@ -38,7 +38,7 @@ const postRobot = async (req, res) => {
 const getToken = (req, res) => {
   const user = { name: "Alejandro" };
 
-  jsonwebtoken.sign({ user }, "tokenKey", (err, token) => {
+  jsonwebtoken.sign({ user }, process.env.SECRET, (err, token) => {
     res.json({ token });
   });
 };

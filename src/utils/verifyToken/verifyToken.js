@@ -1,15 +1,19 @@
-const verifyToken = (req, res, next) => {
-  const bearerHeader = req.headers.authorization;
-  console.log("hola");
+const verifyToken = async (req, res, next) => {
+  const { token } = req.params;
 
-  if (typeof bearerHeader !== "undefined") {
-    const bearerToken = bearerHeader.split[" "][1];
-    req.token = bearerToken;
-    next();
+  if (typeof token !== "undefined") {
+    await jwt.verify(token, secret, (error) => {
+      if (error) {
+        const newError = new Error("You are not authorized");
+        newError.type = errorTypes.invalidToken;
+        next(newError);
+        return;
+      }
+
+      next();
+    });
   } else {
-    const error = new Error("Sorry, you are not authorized to do this");
-    error.code = 403;
-    next(error);
+    res.sendStatus(403);
   }
 };
 

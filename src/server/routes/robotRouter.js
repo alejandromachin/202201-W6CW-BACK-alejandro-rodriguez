@@ -11,6 +11,6 @@ const router = express.Router();
 
 router.get("/", getAllRobots);
 router.get("/:id", getRobotById);
-router.get("/create", verifyToken, postRobot);
+router.post("/create/", verifyToken, postRobot);
 
 module.exports = router;
