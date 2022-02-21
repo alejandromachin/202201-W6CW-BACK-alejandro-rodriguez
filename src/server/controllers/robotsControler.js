@@ -62,7 +62,7 @@ const getToken = async (req, res, next) => {
     const rightPassword = await bcrypt.compare(password, user.password);
     if (!rightPassword) {
       const error = new Error("Sorry, you are not who you say you are");
-      error.code = 404;
+      error.code = 403;
       next(error);
     } else {
       const token = jsonwebtoken.sign(userData, process.env.SECRET);
