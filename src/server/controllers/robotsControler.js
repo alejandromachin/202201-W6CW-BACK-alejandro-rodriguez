@@ -2,6 +2,7 @@ require("dotenv").config();
 
 const jsonwebtoken = require("jsonwebtoken");
 const Robot = require("../../database/models/Robot");
+const User = require("../../database/models/User");
 
 require("dotenv").config();
 
@@ -46,13 +47,18 @@ const editRobot = async (req, res) => {
   res.json(createdRobot);
 };
 
-const getToken = async (req, res) => {
+const getToken = async (req, res, next) => {
   const { username } = req.body;
 
   const user = await User.findOne({ username });
 
-  jsonwebtoken.sign({ user }, process.env.SECRET, (err, token) => {
+  if (!user) {
+    const error = new Error("Sorry, you are not invited to the party");
+    error.code = 404;
+    next(error);
+  } else {
+    const token = jsonwebtoken.sign({ user }, process.env.SECRET);
     res.json({ token });
-  });
+  }
 };
 module.exports = { getAllRobots, getRobotById, getToken, postRobot, editRobot };

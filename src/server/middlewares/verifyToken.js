@@ -3,20 +3,21 @@ require("dotenv").config();
 const jsonwebtoken = require("jsonwebtoken");
 
 const verifyToken = async (req, res, next) => {
-  const token = req.query.Authorization;
+  const headerAuth = req.header("Authorization");
 
-  const tokenId = token.split(" ")[1];
+  const tokenId = headerAuth.split(" ")[1];
 
   if (typeof tokenId !== "undefined") {
-    await jsonwebtoken.verify(tokenId, process.env.SECRET, (error) => {
-      if (error) {
-        const newError = new Error("You are not authorized");
-        next(newError);
-        return;
-      }
-
-      next();
-    });
+    const validatedUser = await jsonwebtoken.verify(
+      tokenId,
+      process.env.SECRET
+    );
+    if (!validatedUser) {
+      const newError = new Error("You are not authorized");
+      next(newError);
+      return;
+    }
+    next();
   } else {
     res.sendStatus(403);
   }

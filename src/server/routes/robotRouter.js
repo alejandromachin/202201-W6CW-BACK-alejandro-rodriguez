@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
-const verifyToken = require("../../utils/verifyToken/verifyToken");
+const verifyToken = require("../middlewares/verifyToken");
+
 const {
   getAllRobots,
   getRobotById,
