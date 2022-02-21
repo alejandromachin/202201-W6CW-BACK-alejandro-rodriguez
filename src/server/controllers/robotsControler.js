@@ -37,6 +37,15 @@ const postRobot = async (req, res) => {
   res.json(createdRobot);
 };
 
+const editRobot = async (req, res) => {
+  const newRobot = req.body;
+
+  const createdRobot = await Robot.findByIdAndUpdate(newRobot.id, newRobot);
+
+  res.status(201);
+  res.json(createdRobot);
+};
+
 const getToken = (req, res) => {
   const user = { name: "Alejandro", id: 123 };
 
@@ -44,4 +53,4 @@ const getToken = (req, res) => {
     res.json({ token });
   });
 };
-module.exports = { getAllRobots, getRobotById, getToken, postRobot };
+module.exports = { getAllRobots, getRobotById, getToken, postRobot, editRobot };

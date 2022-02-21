@@ -24,6 +24,7 @@ const runTheServer = (port) =>
       reject(new Error(`Error on server: ${message}`));
     });
   });
+
 app.use(cors());
 app.use("/login", getTokenRouter);
 app.use("/robots", robotRouter);
