@@ -4,6 +4,6 @@ const { getToken } = require("../controllers/robotsControler");
 
 const router = express.Router();
 
-router.get("/", getToken);
+router.post("/", getToken);
 
 module.exports = router;

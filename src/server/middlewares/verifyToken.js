@@ -4,8 +4,8 @@ const jsonwebtoken = require("jsonwebtoken");
 
 const verifyToken = async (req, res, next) => {
   const headerAuth = req.header("Authorization");
-
-  const tokenId = headerAuth.split(" ")[1];
+  console.log(headerAuth);
+  const tokenId = headerAuth.split("_")[1];
 
   if (typeof tokenId !== "undefined") {
     const validatedUser = await jsonwebtoken.verify(
