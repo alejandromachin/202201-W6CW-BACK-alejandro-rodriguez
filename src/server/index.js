@@ -8,9 +8,16 @@ const getTokenRouter = require("./routes/getTokenRouter");
 const robotRouter = require("./routes/robotRouter");
 
 const app = express();
-app.use(express.static(`${__dirname}/`));
 app.use(morgan("dev"));
 app.use(express.json());
+app.use(
+  cors({
+    origin: "*",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+  })
+);
 
 const runTheServer = (port) =>
   new Promise((resolve, reject) => {
@@ -25,7 +32,6 @@ const runTheServer = (port) =>
     });
   });
 
-app.use(cors());
 app.use("/login", getTokenRouter);
 app.use("/robots", robotRouter);
 
