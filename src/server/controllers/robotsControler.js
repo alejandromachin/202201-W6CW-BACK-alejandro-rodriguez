@@ -46,8 +46,10 @@ const editRobot = async (req, res) => {
   res.json(createdRobot);
 };
 
-const getToken = (req, res) => {
-  const user = { name: "Alejandro", id: 123 };
+const getToken = async (req, res) => {
+  const { username } = req.body;
+
+  const user = await User.findOne({ username });
 
   jsonwebtoken.sign({ user }, process.env.SECRET, (err, token) => {
     res.json({ token });
