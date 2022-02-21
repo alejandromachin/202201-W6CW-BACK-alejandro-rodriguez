@@ -4,7 +4,7 @@ const jsonwebtoken = require("jsonwebtoken");
 
 const verifyToken = async (req, res, next) => {
   const headerAuth = req.header("Authorization");
-  console.log(headerAuth);
+
   const tokenId = headerAuth.split("_")[1];
 
   if (typeof tokenId !== "undefined") {
