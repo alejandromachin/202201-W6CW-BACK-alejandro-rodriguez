@@ -14,6 +14,7 @@ const verifyToken = async (req, res, next) => {
     );
     if (!validatedUser) {
       const newError = new Error("You are not authorized");
+      newError.code = 401;
       next(newError);
       return;
     }

@@ -3,6 +3,7 @@ const cors = require("cors");
 const express = require("express");
 const morgan = require("morgan");
 const debug = require("debug")("robots:server");
+const { notFoundError, generalError } = require("./middlewares/errors");
 
 const getTokenRouter = require("./routes/getTokenRouter");
 const robotRouter = require("./routes/robotRouter");
@@ -34,5 +35,8 @@ const runTheServer = (port) =>
 
 app.use("/login", getTokenRouter);
 app.use("/robots", robotRouter);
+
+app.use(notFoundError);
+app.use(generalError);
 
 module.exports = runTheServer;
