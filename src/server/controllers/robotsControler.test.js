@@ -1,5 +1,10 @@
 const Robot = require("../../database/models/Robot");
-const { getAllRobots, getRobotById, postRobot } = require("./robotsControler");
+const {
+  getAllRobots,
+  getRobotById,
+  postRobot,
+  editRobot,
+} = require("./robotsControler");
 
 jest.mock("../../database/models/Robot");
 
@@ -114,6 +119,37 @@ describe("Given a postRobot function", () => {
       Robot.create = jest.fn().mockResolvedValue(newRobot);
 
       await postRobot(newRobot, res);
+
+      expect(res.json).toHaveBeenCalledWith(newRobot);
+    });
+  });
+});
+
+describe("Given a editRobot function", () => {
+  beforeEach(() => {
+    jest.resetAllMocks();
+  });
+  describe("When it receives a response", () => {
+    test("Then it should call its json method with the robot edited", async () => {
+      const req = {
+        body: {
+          name: "testbot",
+          id: 1,
+        },
+      };
+      const newRobot = {
+        name: "testbot",
+        id: 1,
+      };
+
+      const res = {
+        json: jest.fn(),
+        status: jest.fn(),
+      };
+
+      Robot.findByIdAndUpdate = jest.fn().mockResolvedValue(newRobot);
+
+      await editRobot(req, res);
 
       expect(res.json).toHaveBeenCalledWith(newRobot);
     });
