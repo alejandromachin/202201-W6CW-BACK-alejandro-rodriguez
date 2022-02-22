@@ -1,6 +1,6 @@
 require("dotenv").config();
 const express = require("express");
-const { getToken } = require("../controllers/robotsControler");
+const getToken = require("../controllers/userControler");
 
 const router = express.Router();
 
