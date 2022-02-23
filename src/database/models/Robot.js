@@ -23,7 +23,7 @@ const RobotSchema = new Schema({
   },
 
   dateOfCreation: {
-    type: Date,
+    type: String,
     default: Date.now,
     inmutable: true,
   },

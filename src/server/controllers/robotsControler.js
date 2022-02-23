@@ -1,8 +1,6 @@
 require("dotenv").config();
-const bcrypt = require("bcrypt");
-const jsonwebtoken = require("jsonwebtoken");
+
 const Robot = require("../../database/models/Robot");
-const User = require("../../database/models/User");
 
 const getAllRobots = async (req, res) => {
   const robots = await Robot.find();
@@ -45,29 +43,4 @@ const editRobot = async (req, res) => {
   res.json(createdRobot);
 };
 
-const getToken = async (req, res, next) => {
-  const { username, password } = req.body;
-
-  const user = await User.findOne({ username });
-
-  if (!user) {
-    const error = new Error("Sorry, you are not invited to the party");
-    error.code = 404;
-    next(error);
-  } else {
-    const userData = {
-      username: user.name,
-      id: user.id,
-    };
-    const rightPassword = await bcrypt.compare(password, user.password);
-    if (!rightPassword) {
-      const error = new Error("Sorry, you are not who you say you are");
-      error.code = 403;
-      next(error);
-    } else {
-      const token = jsonwebtoken.sign(userData, process.env.SECRET);
-      res.json({ token });
-    }
-  }
-};
-module.exports = { getAllRobots, getRobotById, getToken, postRobot, editRobot };
+module.exports = { getAllRobots, getRobotById, postRobot, editRobot };
